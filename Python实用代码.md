@@ -506,3 +506,188 @@ def cut(obj, length):
     return [obj[i:i+length] for i in range(0,len(obj),length)]
 cut("abcde", 2) #['ab', 'cd', 'e']
 ```
+
+
+
+# 图的连通性判断-并查集
+
+```python
+pre = {}
+
+def find(x):
+    r = x
+    while pre[r] != r:
+        r = pre[r]
+    i = x
+    while i != r:  # 路径压缩，平衡树层次的效果
+        j = pre[i]
+        pre[i] = j
+        i = j
+    return r
+
+def join(x, y):
+    fx = find(x)
+    fy = find(y)
+    if fx != fy:
+        # root = min(fx, fy)  # 平衡树的层次的效果
+        # pre[fx] = root
+        # pre[fy] = root
+        pre[fx] = fy
+
+
+def judge(n, edges):
+    '''
+    判断是否连通
+    :param n: 节点数
+    :param edges: 边的集合
+    :return: 是否连通
+    >>> judge(4, [(0, 1), (2, 0),(2, 3)])
+    True
+    >>> judge(4, [(2, 0),(2, 3)])
+    False
+    '''
+    for i in range(n):
+        pre[i] = i
+    for i in range(len(edges)):
+        join(edges[i][0], edges[i][1])
+    group = 0
+    for i in range(n):
+        if pre[i] == i:
+            group += 1
+    if group == 1:
+        return True
+    else:
+        return False
+print(judge(4, [(0, 1), (2, 0),(2, 3)])) # True
+```
+
+# 快速幂
+
+```python
+# base^power % mod
+def fastPower(base, power, mod):
+    res = 1
+    while power > 0:
+        if power&1:
+        	res = (res*base)%mod
+      	base = base **2 % mod
+        power >>= 1
+  	return res
+```
+
+
+
+# 正则表达式
+
+```python
+import re
+# s:str, p:parten
+def match(s, p):
+    return re.fullmatch(p, s) != None
+```
+
+
+
+# 计算表达式
+
+(+ 1 2 )
+
+(+ 1 (+ 2 3))
+
+(* (+ 1 2) (*3 4))
+
+```python
+#calculator expression
+
+def cal_1 (s):
+    s = s.strip().replace('(','',1)[::-1].replace(')','',1)[::-1].strip()
+    if ' ' not in s :
+        return float(s)  #just a number
+    else:
+        tmp = s.split(' ',1)
+        opt = tmp[0].strip()
+        temp = tmp[1].strip()
+        left = 0       
+        right = 0
+        for i in range(len(temp)):
+            if temp[i] == '(':
+                left += 1
+            if temp[i] == ')':
+                right += 1
+            if temp[i] == ' ' and left==right :
+                break
+        
+        data1 = temp[:i]
+        data2 = temp[i:]
+
+        v1 = cal_1(data1)
+        v2 = cal_1(data2)
+        if opt == '+':
+            return v1 + v2
+        elif opt == '-':
+            return v1 - v2
+        elif opt == '*':
+            return v1 * v2
+        elif opt == '/':
+            return v1 / v2
+        elif opt == '%':
+            return v1 % v2
+        else:
+            return 0
+
+
+def cal_2 (s):
+    def cal_exp (exp):
+        def cal_exp_two (opt,a,b):
+            a = float(a)
+            b = float(b)
+            if opt == '+':
+                return a+b
+            elif opt == '-':
+                return a-b
+            elif opt == '*':
+                return a*b
+            elif opt == '/':
+                return a/b
+            elif opt == '%':
+                return a%b
+            else:
+                return 0
+        result = exp[1]
+        for i in range(2,len(exp)):
+            result = cal_exp_two (exp[0],result,exp[i])
+        return result
+    s = s.replace('(',' ( ').replace(')',' ) ')
+    left = s.split()
+    right = []
+    temp  = []
+    while left:
+        tmp_left = left.pop().strip()
+        if tmp_left == '(':
+            tmp_right = right.pop()
+            while tmp_right != ')':
+                temp.append (tmp_right)
+                tmp_right = right.pop()
+            right.append (cal_exp(temp))
+            temp = []
+        else:
+            right.append (tmp_left)
+    return right[-1]
+
+print cal_1 ( '(- (+ 23 1) (* 3 4))')     #12.0
+print cal_1 ( '(- (+ 1 2) (* 3 4))')      #-9
+print cal_1 ( '(- 1 1)')                  #0
+print cal_1 ( '(- 1 (* 12 12))' )         #-143.0
+print cal_1 ( '(- (* 23 2) 12))' )        #34.0
+print '----------------------'
+#
+print cal_2 ( '(- (+ 23 1) (* 3 4))')     #12.0
+print cal_2 ( '(- (+ 1 2) (* 3 4))')      #-9
+print cal_2 ( '(- 1 1)')                  #0
+print cal_2 ( '(- 1 (* 12 12))' )         #-143.0
+print cal_2 ( '(- (* 23 2) 12))' )        #34.0
+print cal_2 ( '(- (* 23 2 2) 12 ))' )     #80.0
+
+
+```
+
