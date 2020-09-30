@@ -419,6 +419,36 @@ print(res)
 
 ```
 
+## 判断是否是素数
+
+```python
+import math
+def p(n):
+    return math.factorial(n-1)**2%n
+
+def is_prime(n):
+    if n <= 1:    
+        return False   
+    i = 2   
+    while i*i <= n:    
+        if n % i == 0:    
+            return False   
+        i += 1   
+    return True
+
+def is_prime(num):
+    p=n=1
+    loc = locals()
+    exec("p*=n*n;n+=1;"*~-int(num))
+    p=loc['p']
+    n=loc['n']
+    # print(p,n)
+    print(p%n)
+    return p%n
+
+def p(n):
+  return[i for i in range(1,n)if n%i==0]==[1]
+```
 
 
 ## 罗马数字转整数
