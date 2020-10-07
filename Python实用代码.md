@@ -13,7 +13,7 @@ all_unique(x) # False
 all_unique(y) # True
 ```
 
-## **2 **字符元素组成判定
+## **2 字符元素组成判定**
 
 检查两个字符串的组成元素是不是一样的。
 
@@ -137,6 +137,18 @@ def count_vowels(str):
 count_vowels('foobar') # 3
 count_vowels('gym') # 0
 ```
+
+多个分割符切分字符串
+
+```python
+import re
+
+line='hello,world'
+# [] 内填入对应分割符号
+lineLists = re.split('[，,.。？?]',line.strip())
+```
+
+
 
 ## **13 首字母小写**
 
@@ -449,7 +461,6 @@ def is_prime(num):
 def p(n):
   return[i for i in range(1,n)if n%i==0]==[1]
 ```
-
 
 ## 罗马数字转整数
 
