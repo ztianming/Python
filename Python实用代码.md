@@ -802,3 +802,30 @@ print cal_2 ( '(- (* 23 2 2) 12 ))' )     #80.0
 
 ```
 
+## matplotlib绘图
+
+### 绘制CDF
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import mlab
+def cdf(x, plot=True, *args, **kwargs):
+    x, y = sorted(x), np.arange(len(x)) / len(x)
+    return plt.plot(x, y, *args, **kwargs) if plot else (x, y)
+
+rand = [3.16, 3.72, 2.37, 3.05, 2.72, 2.53, 2.04, 2.33, 1.32, 1.87]
+int2 = [1.54, 2.43, 2.04, 1.87, 2.21, 2.44, 2.9, 2.9, 2.59, 2.74]
+
+crand, = cdf(rand)
+cint2, = cdf(int2)
+# 坐标标签
+plt.xlabel('Localization Error (m)',fontsize=14)
+plt.ylabel('CDF',fontsize=14)
+# 设置图例
+plt.legend([crand, cint2], ['Random', 'interval-2'], loc='center right', scatterpoints=10)
+# 绘制图片
+plt.show()
+#保存图像
+#plt.savefig('/1.png', dpi=100, bbox_inches='tight')
+```
