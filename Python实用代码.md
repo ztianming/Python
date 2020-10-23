@@ -411,7 +411,77 @@ d = {'a': 1, 'b': 2}
 print(d.get('c', 3)) # 3
 ```
 
-小数转分数
+字典排序
+
+```python
+# 按key排序
+res = sorted(dict.items(), key=lambda item:item[0])
+
+# 按value排序
+res = sorted(dict.items(), key=lambda item:item[1])
+
+# 按先value后key排序
+res = sorted(dict.items(), key=lambda item:(item[1], item[0]))
+
+```
+
+
+
+## 一组数据的最大公约数
+
+```python
+import math
+def gcd_many(s):
+    g = 0
+    for i in range(len(s)):
+        if i == 0:
+            g = s[i]
+        else:
+            g=math.gcd(g,s[i])
+
+    return g
+```
+
+
+
+## 最小公倍数
+
+```python
+# 定义函数
+def lcm(x, y):
+ 
+   #  获取最大的数
+   if x > y:
+       greater = x
+   else:
+       greater = y
+ 
+   while(True):
+       if((greater % x == 0) and (greater % y == 0)):
+           lcm = greater
+           break
+       greater += 1
+ 
+   return lcm
+```
+
+## 一组数据的最小公倍数
+
+```python
+import math
+def gbs(s):
+    a,b = s[0],s[1]
+    a = a // math.gcd(a, b) * b // math.gcd(a, b) * math.gcd(a, b)
+    if len(s)>2:
+        for i in range(2,len(s)):
+            b = s[i]
+            a = a//math.gcd(a,b) * b//math.gcd(a,b) * math.gcd(a, b)
+    return a
+```
+
+
+
+## 小数转分数
 
 > Fraction(numerator=0, denominator=1) 
 
