@@ -425,7 +425,22 @@ res = sorted(dict.items(), key=lambda item:(item[1], item[0]))
 
 ```
 
+## 时间差值
 
+```python
+from dateutil.parser import parse
+n = input()
+a = input()
+
+d = int(input())
+# (parse(a)-parse(n)).days
+# (parse(a)-parse(n)).total_seconds()
+res = (parse(a)-parse(n)).seconds
+if res >= d*60:
+    print("OK")
+else:
+    print("LATE")
+```
 
 ## 一组数据的最大公约数
 
