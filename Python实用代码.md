@@ -576,6 +576,30 @@ def intToRoman(num):
 
 ```
 
+## 矩阵旋转
+
+```python
+# rotate 90 degree to the right
+def rotate90_right(matrix):
+    # matrix: List[List[int]]
+    return list(map(list,zip(*matrix[::-1])))
+# rotate 90 degree to the left
+def rotate90_left(matrix):
+    # matrix: List[List[int]]
+    return list(map(list,zip(*matrix)))[::-1]
+# rotate 180 degree
+def rotate180(matrix):
+    # matrix: List[List[int]]
+    return rotate90_right(rotate90_right(matrix))
+
+mat = [[1,2,3],[4,5,6]]
+print(rotate90_right(mat))
+print(rotate90_left(mat))
+print(rotate180(mat))
+```
+
+
+
 ## 杨辉三角
 
 \# Pascal's Triangle short
@@ -844,3 +868,4 @@ plt.show()
 #保存图像
 #plt.savefig('/1.png', dpi=100, bbox_inches='tight')
 ```
+
