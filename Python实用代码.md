@@ -516,6 +516,29 @@ print(res)
 
 ```
 
+化简分数
+```python
+# method 1
+# 利用最大公约数
+import math
+n = int(input())
+d = int(input())
+g=math.gcd(n,d)
+print(n//g,d//g,sep="/")
+
+# method 2
+# Fraction(numerator=0, denominator=1) 
+# 第一个参数是分子，默认为0；第二个参数为分母，默认为1。
+import fractions
+numerator = int(input())
+denominator = int(input())
+f = fractions.Fraction(numerator, denominator)
+print(f"{f.numerator}/{f.denominator}")
+
+# 5 5 ouptut:1/1
+# 3 6 output:1/2
+```
+
 ## 判断是否是素数
 
 ```python
