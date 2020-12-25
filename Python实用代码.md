@@ -516,7 +516,32 @@ print(res)
 
 ```
 
+分数转小数
+
+```python
+def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        n, reminder = divmod(abs(numerator), abs(denominator))
+        sign = "-" if numerator*denominator<0 else ''
+        result = [sign+str(n), '.']
+        # 记录小数-长度
+        reminders = {}
+        while reminder >0 and reminder not in reminders:
+            # 记录
+            reminders[reminder] = len(result)
+            # 长除法
+            n, reminder = divmod(reminder*10, abs(denominator))
+            result.append(str(n))
+        
+        if reminder in reminders:
+            idx = reminders[reminder]
+            result.insert(idx, '(')
+            result.append(')')
+        # 返回值,整数去掉后面的点
+        return ''.join(result).rstrip('.')
+```
+
 化简分数
+
 ```python
 # method 1
 # 利用最大公约数
@@ -538,6 +563,8 @@ print(f"{f.numerator}/{f.denominator}")
 # 5 5 ouptut:1/1
 # 3 6 output:1/2
 ```
+
+
 
 ## 判断是否是素数
 
